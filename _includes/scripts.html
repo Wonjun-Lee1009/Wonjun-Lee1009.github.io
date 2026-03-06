@@ -67,13 +67,20 @@
         dropdown.classList.remove('is-open');
         toggle.classList.remove('close');
       }
-      wasMobile = isMobile;
-
       if (isMobile) {
         toggle.style.display = 'block';
+
+        if (dropdown.classList.contains('is-open')) {
+          toggle.classList.add('close');
+        } else {
+          toggle.classList.remove('close');
+        }
       } else {
         toggle.style.display = 'none';
+        toggle.classList.remove('close');
       }
+
+      wasMobile = isMobile;
     }
 
     syncByWidth();
