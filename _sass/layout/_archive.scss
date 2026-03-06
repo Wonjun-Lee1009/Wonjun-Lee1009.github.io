@@ -135,25 +135,33 @@
   }
 }
 
-/* 925px 이하: 스크롤 시 주소창 변화에 영향받지 않도록 CSS만으로 세로 배치 고정 */
+/* 모바일(925px 이하): 세로 배치 + 이미지 왼쪽 정렬, 최대 60vw(화면 축소 시 비율대로 축소) */
 @media (max-width: 925px) {
   .archive__item--with-teaser {
-    display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.25em;
+    margin-top: 1.5em; /* 이미지 위쪽: 이전 항목 텍스트와 간격 넓게 */
   }
 
-  .archive__item-teaser--list {
-    width: 50%;
-    max-width: 50%;
-    min-width: 0;
-    margin: 1.5em 0 0 0;
+  .list__item:first-child .archive__item--with-teaser {
+    margin-top: 0;
   }
 
-  .archive__item-body {
+  .archive__item--with-teaser .archive__item-teaser--list,
+  .archive__item--with-teaser .archive__item-teaser {
     width: 100%;
+    max-width: 60vw;
+    min-width: 0;
+    flex-shrink: 0;
+    float: none;
+    margin: 0 0 -0.5em 0;
+  }
+
+  .archive__item--with-teaser .archive__item-body {
+    width: 100%;
+    float: none;
     padding: 0;
+    margin-top: -0.5em; /* 이미지와 본문을 더 붙임 */
   }
 }
 
