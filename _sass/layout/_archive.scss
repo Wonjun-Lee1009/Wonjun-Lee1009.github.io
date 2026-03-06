@@ -110,8 +110,8 @@
 
 .archive__item-teaser--list {
   flex-shrink: 0;
-  width: 210px;
-  min-width: 210px;
+  width: 250px;
+  min-width: 250px;
   border-radius: $border-radius;
   overflow: hidden;
   background-color: #fff;
@@ -132,6 +132,23 @@
 
   p {
     font-size: $type-size-6;
+  }
+}
+
+/* 모바일: publication 리스트에서 이미지가 화면 절반을 넘지 않도록 조정 */
+@media screen and (max-width: ($medium - 1)) {
+  .archive__item--with-teaser {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .archive__item-teaser--list {
+    width: auto;
+    min-width: 0;
+    max-width: 60vw; /* 화면의 60%까지만, 조금 더 크게 */
+    margin-top: 0.5em;
+    margin-right: auto;
+    margin-left: 0;
   }
 }
 

@@ -40,7 +40,7 @@ author_profile: true
           {% endif %}
         </div>
       {% endfor %}
-      <p class="home-section__group-footer">Academic activity, Honors &amp; Awards, Presentation, Extracurricular activity, and other information are available on my CV. <a href="{{ base_path }}/files/cv.pdf" target="_blank" rel="noopener noreferrer" class="home-section__group-footer-pdf"><i class="fas fa-file-alt" aria-hidden="true"></i> View CV as PDF</a></p>
+      <p class="home-section__group-footer">Academic activity, Honors &amp; Awards, Presentation, Extracurricular activity, and other information are available on my CV. <a href="{{ base_path }}{{ site.cv_pdf }}" target="_blank" rel="noopener noreferrer" class="home-section__group-footer-pdf"><i class="fas fa-file-alt" aria-hidden="true"></i> View CV as PDF</a></p>
     </section>
   {% else %}
     {% if nav.type == "publications" %}

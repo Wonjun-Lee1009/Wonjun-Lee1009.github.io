@@ -22,7 +22,7 @@ layout: default
       <h1 class="page__title">
         {{ page.title }}
         {% if page.permalink == '/cv/' %}
-          <a href="{{ base_path }}/files/cv.pdf"
+          <a href="{{ base_path }}{{ site.cv_pdf }}"
              class="btn"
              style="margin-left: 0.75rem; padding: 0.22rem 0.6rem; font-size: 0.5em; text-decoration: none;"
              target="_blank"
