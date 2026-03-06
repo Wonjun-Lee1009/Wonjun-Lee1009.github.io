@@ -22,7 +22,8 @@
     margin-top: 0;
   }
 
-  @media screen and (min-width: $sidebar-screen-min-width) {
+  /* 925px부터 고정 → 925–1024px 구간에서도 프로필 이미지가 내려가지 않음 (타원 등 나머지는 1024px 기준 유지) */
+  @media screen and (min-width: $large) {
     height: 100vh;
     overflow-y: auto;               // Add scrollbar if the sidebar is too long
     position: fixed;
@@ -176,8 +177,8 @@
     border-radius: 50%;
 
     @include breakpoint($large) {
-      padding: 5px;
-      border: 1px solid var(--global-border-color);
+      padding: 4px;
+      border: 2px solid var(--global-border-color);
     }
   }
 }
@@ -210,6 +211,7 @@
     max-width: none;
     float: none;
     padding: 0;
+    margin-bottom: 0.1rem; /* author-hero-mobile 아래 여백 축소 */
   }
 
   .sidebar > *:not(.author-hero-mobile) {
@@ -218,8 +220,9 @@
 
   .author-hero-mobile {
     display: block;
-    padding: 0.8rem 1.5rem 1.5rem;
+    padding: 0.8rem 1.5rem 1rem;
     margin-top: -3rem; /* masthead 바로 아래로 더 끌어올림 */
+    // margin-bottom: 0;
     text-align: center;
     background: var(--global-bg-color);
     color: var(--global-text-color);
@@ -235,6 +238,9 @@
     object-fit: cover;
     object-position: center 20%; /* 얼굴이 원 안에 오도록 상단 기준 (필요 시 15%~25% 조절) */
     margin-bottom: 1rem;
+    padding: 4px;
+    border: 2px solid var(--global-border-color);
+    box-sizing: border-box;
   }
 
   .author-hero-mobile__name {
@@ -575,7 +581,7 @@
 .author__urls-wrapper {
   position: relative;
   display: table-cell;
-  vertical-align: middle;
+  vertical-align: top; /* top 정렬로 1024px 전환 시 텍스트 줄어들어도 아바타가 내려가지 않음 */
   font-family: $sans-serif;
   z-index: 10;
   position: relative;

@@ -15,21 +15,26 @@
     max-width: $x-large;
   }
 
-  /* 홈: 상단 여백 — 헤더와 본문 사이 간격은 .archive padding-top으로 */
+  /* 홈: 상단 여백 — 헤더와 본문 사이 간격은 .archive padding-top으로 (인트로를 더 위로) */
   &.main--home {
     margin-top: 0;
     padding-top: 0;
     .archive {
       margin-top: 0;
-      padding-top: 4em;
+      padding-top: 2.5em;
     }
   }
 }
 
-/* 홈 상단 여백 (프로필/링크와 인트로 사이) — 모바일에서 축소 */
+/* 홈 본문 래퍼 상단 여백 줄임 (인트로를 더 위로) */
+#main.main--home .archive__home-top {
+  padding-top: 2em !important;
+}
+
+/* 홈 상단 여백 (프로필/링크와 인트로 사이) — 인트로를 더 위로 */
 .home-top-spacer {
-  height: 4em;
-  min-height: 4em;
+  height: 2em;
+  min-height: 2em;
 }
 
 /* 모바일/태블릿(large 이전)에서는 전체 여백을 조금 줄여서 왼쪽 정렬 느낌 강화 */
@@ -39,10 +44,18 @@
     padding-right: 0.75rem;
   }
 
-  /* 홈: 프로필/링크와 인트로 글씨 사이 간격 축소 (single 레이아웃은 .archive 없음) */
+  /* 홈 모바일: 인트로를 한참 더 위로 (프로필 바로 아래로) */
+  #main.main--home .archive {
+    padding-top: 0 !important;
+  }
+
+  #main.main--home .archive__home-top {
+    padding-top: 0 !important;
+  }
+
   .home-top-spacer {
-    height: 0.75em;
-    min-height: 0.75em;
+    height: 0;
+    min-height: 0;
   }
 }
 
