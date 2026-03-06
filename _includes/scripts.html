@@ -104,6 +104,40 @@
 </script>
 
 <script>
+  // 모바일에서 publication 리스트의 이미지/텍스트 폭을 비교해,
+  // 이미지 폭이 더 크면 세로 배치(.archive__item--stacked)로 전환
+  document.addEventListener('DOMContentLoaded', function () {
+    function updatePublicationLayout() {
+      var isMobile = window.matchMedia('(max-width: 925px)').matches;
+      var items = document.querySelectorAll('.archive__item--with-teaser');
+      if (!items.length) return;
+
+      items.forEach(function (item) {
+        item.classList.remove('archive__item--stacked');
+        if (!isMobile) return;
+
+        var teaser = item.querySelector('.archive__item-teaser--list, .archive__item-teaser');
+        var body = item.querySelector('.archive__item-body');
+        if (!teaser || !body) return;
+
+        var teaserWidth = teaser.getBoundingClientRect().width;
+        var bodyWidth = body.getBoundingClientRect().width;
+
+        if (teaserWidth > bodyWidth) {
+          item.classList.add('archive__item--stacked');
+        }
+      });
+    }
+
+    updatePublicationLayout();
+    window.addEventListener('resize', updatePublicationLayout);
+    if (window.screen && window.screen.orientation && window.screen.orientation.addEventListener) {
+      window.screen.orientation.addEventListener('change', updatePublicationLayout);
+    }
+  });
+</script>
+
+<script>
   document.addEventListener('click', function (event) {
     var target = event.target.closest('.author__email-link');
     if (!target) return;
