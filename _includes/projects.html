@@ -1,0 +1,8 @@
+{% assign projects_sorted = site.projects | sort: "date" | reverse %}
+{% if projects_sorted.size > 0 %}
+<ul>
+  {% for post in projects_sorted %}
+    {% include archive-single-project-cv.html %}
+  {% endfor %}
+</ul>
+{% endif %}

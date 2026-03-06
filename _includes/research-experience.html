@@ -1,0 +1,8 @@
+{% assign research_exp = site.research_experience | sort: "date" | reverse %}
+{% if research_exp.size > 0 %}
+<ul>
+  {% for post in research_exp %}
+    {% include archive-single-research-cv.html %}
+  {% endfor %}
+</ul>
+{% endif %}

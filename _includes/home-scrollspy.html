@@ -1,0 +1,116 @@
+<script>
+(function () {
+  var HEADER = 80;
+
+  function getTop(el) {
+    return el.getBoundingClientRect().top + window.scrollY;
+  }
+
+  function run() {
+    var nav = document.getElementById('site-nav');
+    if (!nav) return;
+
+    // 홈 섹션(#publications, #talks, ...) 기반으로 상단 탭 자동 생성
+    var homeSections = Array.prototype.slice.call(document.querySelectorAll('.home-section'));
+    if (homeSections.length) {
+      var visible = nav.querySelector('.wonjun-nav__links');
+      if (visible) {
+        var themeToggle = visible.querySelector('#theme-toggle');
+        homeSections.forEach(function (section) {
+          var id = section.id;
+          if (!id) return;
+
+          // 이미 같은 id의 링크가 있으면 스킵
+          var exists = nav.querySelector('.masthead__menu-item a[href$="#' + id + '"]');
+          if (exists) return;
+
+          var heading = section.querySelector('.home-section__title');
+          var label = heading ? heading.textContent.trim() : id;
+
+          function makeItem() {
+            var li = document.createElement('li');
+            li.className = 'masthead__menu-item';
+            var a = document.createElement('a');
+            a.href = '#'+id;
+            a.textContent = label;
+            li.appendChild(a);
+            return li;
+          }
+
+          var liVisible = makeItem();
+          if (themeToggle && themeToggle.parentNode === visible) {
+            visible.insertBefore(liVisible, themeToggle);
+          } else {
+            visible.appendChild(liVisible);
+          }
+
+        });
+      }
+    }
+
+    var pairs = [];
+    nav.querySelectorAll('.masthead__menu-item a[href*="#"]').forEach(function (a) {
+      var href = a.getAttribute('href') || '';
+      var i = href.indexOf('#');
+      if (i === -1) return;
+      var id = href.slice(i + 1).split(/[?#]/)[0];
+      if (!id) return;
+      var section = document.getElementById(id);
+      if (!section) return;
+      pairs.push({ id: id, section: section, li: a.closest('.masthead__menu-item') });
+    });
+    if (!pairs.length) return;
+
+    function setActive(id) {
+      // 모든 항목에서 selected 제거
+      nav.querySelectorAll('.masthead__menu-item').forEach(function (el) {
+        el.classList.remove('selected');
+      });
+
+      // 현재 id를 가리키는 모든 링크(상단 탭 + 드롭박스)를 다시 찾아서 selected 부여
+      var selector = '.masthead__menu-item a[href*="#' + id + '"]';
+      nav.querySelectorAll(selector).forEach(function (a) {
+        var li = a.closest('.masthead__menu-item');
+        if (li) li.classList.add('selected');
+      });
+    }
+
+    function onScroll() {
+      var y = window.scrollY + HEADER;
+      var current = pairs[0].id;
+      for (var i = 0; i < pairs.length; i++) {
+        if (getTop(pairs[i].section) <= y) current = pairs[i].id;
+      }
+      setActive(current);
+    }
+
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+
+    pairs.forEach(function (p) {
+      var a = p.li && p.li.querySelector('a');
+      if (!a) return;
+      a.addEventListener('click', function (e) {
+        e.preventDefault();
+        var top = p.id === 'main' ? 0 : Math.max(0, getTop(p.section) - HEADER);
+        window.scrollTo({ top: top, behavior: 'smooth' });
+        setActive(p.id);
+      });
+    });
+
+    var hash = window.location.hash.slice(1).split(/[?#]/)[0];
+    if (hash) {
+      var target = pairs.find(function (x) { return x.id === hash; });
+      if (target) {
+        var top = target.id === 'main' ? 0 : Math.max(0, getTop(target.section) - HEADER);
+        window.scrollTo(0, top);
+        setActive(target.id);
+      }
+    }
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run);
+  else run();
+})();
+</script>

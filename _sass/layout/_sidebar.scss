@@ -17,6 +17,11 @@
     margin-top: 1em;
   }
 
+  /* 홈에서는 사이드바 상단 여백 제거(모바일에서 Home 섹션 바로 위 공간 최소화) */
+  .main--home & {
+    margin-top: 0;
+  }
+
   @media screen and (min-width: $sidebar-screen-min-width) {
     height: 100vh;
     overflow-y: auto;               // Add scrollbar if the sidebar is too long
@@ -55,8 +60,17 @@
     line-height: 1.5;
   }
 
-  img {
+  /* 프로필 링크 아이콘·모바일 아바타는 제외, 나머지 이미지만 100% */
+  img:not(.author-profile__icon-scholar):not(.author-hero-mobile__icon-scholar):not(.author-hero-mobile__avatar-img) {
     width: 100%;
+  }
+}
+
+/* 가로 1024px 미만: 사이드바는 고정/우측 레이아웃 없이
+   상단 프로필(hero) 래퍼 역할만 하도록 기본 값 유지 */
+@media screen and (max-width: ($sidebar-screen-min-width - 1)) {
+  .sidebar {
+    margin-top: 0;
   }
 }
 
@@ -155,12 +169,288 @@
 
   img {
     max-width: 175px;
+    width: 175px;
+    height: 175px;
+    object-fit: cover;
+    object-position: center 20%;
     border-radius: 50%;
 
     @include breakpoint($large) {
       padding: 5px;
       border: 1px solid var(--global-border-color);
     }
+  }
+}
+
+/* ----- 데스크톱 전용: 사이드바 Google Scholar SVG ----- */
+.author__urls .author-profile__icon-scholar {
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  vertical-align: -0.1em;
+  margin-right: 0.75em;
+  margin-left: -0.05em;
+}
+
+/* 모바일 전용 중앙 정렬 프로필 헤더 / Home 전용 Contact & Education
+   (기본은 데스크톱에서 숨김) */
+.author-hero-mobile,
+.home-contact-row,
+.home-contact-mobile,
+.home-education-mobile,
+.home-education-desktop {
+  display: none;
+}
+
+@media screen and (max-width: ($large - 1)) {
+  /* 사이드바는 모바일에서 전체 폭 상단 래퍼처럼만 사용하고,
+     기존 데스크톱용 내용은 모두 숨긴다. */
+  .sidebar {
+    width: 100%;
+    max-width: none;
+    float: none;
+    padding: 0;
+  }
+
+  .sidebar > *:not(.author-hero-mobile) {
+    display: none;
+  }
+
+  .author-hero-mobile {
+    display: block;
+    padding: 0.8rem 1.5rem 1.5rem;
+    margin-top: -3rem; /* masthead 바로 아래로 더 끌어올림 */
+    text-align: center;
+    background: var(--global-bg-color);
+    color: var(--global-text-color);
+  }
+
+  .author-hero-mobile__avatar img,
+  .author-hero-mobile__avatar-img {
+    width: 156px;
+    height: 156px;
+    min-width: 156px;
+    min-height: 156px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center 20%; /* 얼굴이 원 안에 오도록 상단 기준 (필요 시 15%~25% 조절) */
+    margin-bottom: 1rem;
+  }
+
+  .author-hero-mobile__name {
+    margin: 0;
+    font-family: $sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+  }
+
+  .author-hero-mobile__school {
+    margin-top: 0.35rem;
+    margin-bottom: 0.9rem;
+    font-size: $type-size-5;
+    color: var(--global-text-color-light);
+  }
+
+  .author-hero-mobile__links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.75rem; /* 모바일: 링크 사이 간격 축소 (세로 0.5rem, 가로 0.75rem) */
+    margin-bottom: 0.5rem; /* 링크와 아래 인트로 글씨 간격 축소 */
+
+    a {
+      font-size: $type-size-6;
+      text-decoration: none;
+      color: var(--global-text-color); /* 기본: 텍스트 색 */
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    /* Scholar 링크만 flex → 아이콘 vertical-align이 줄박스를 키우지 않아 텍스트가 안 내려감 */
+    .author-hero-mobile__link--scholar {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    /* ----- 모바일 전용: 헤더 Google Scholar SVG ----- */
+    .author-hero-mobile__link--scholar img,
+    .author-hero-mobile__icon-scholar {
+      height: 1.4em;
+      width: 1.4em;
+      display: block;
+      margin-right: 0.5em;
+      transform: translate(0.12em, -0.05em);
+      /* 이미지만 올리려면: transform: translate(0.12em, -0.1em); (텍스트는 그대로) */
+    }
+  }
+
+  /* Home 페이지 전용: Publications 인트로 아래에 나오는 Contact / Education 블록 (모바일에서만 표시) */
+  .home-contact-row {
+    display: block;
+    max-width: 48rem;
+    margin: 1.8rem auto 0;
+    padding: 0 1.25rem 0;
+    text-align: left;
+    border-top: 1px solid var(--global-border-color);
+    padding-top: 0.75rem;
+  }
+
+  .home-contact-mobile,
+  .home-education-mobile {
+    display: block;
+  }
+
+  .home-contact-row {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  .home-contact-mobile__title {
+    font-weight: 600;
+    font-size: $type-size-5;
+    margin-bottom: 0.4rem;
+  }
+
+  .home-contact-mobile__item {
+    display: flex;
+    gap: 0.75rem;
+    font-size: $type-size-6;
+    margin-top: 0.25rem;
+  }
+
+  .home-contact-mobile__label {
+    min-width: 4.3rem;
+    color: var(--global-text-color);
+    white-space: nowrap;
+  }
+
+  .home-contact-mobile__value a {
+    color: var(--global-text-color);
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .home-contact-mobile__item--linkedin i {
+    color: $linkedin-color;
+  }
+
+  .home-education-mobile__title {
+    font-weight: 600;
+    font-size: $type-size-5;
+    margin-bottom: 0.4rem;
+  }
+
+  .home-education-mobile__item {
+    margin-top: 0.25rem;
+    font-size: $type-size-6;
+    display: flex;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+
+  .home-education-mobile__icon {
+    margin-top: 0.15rem;
+  }
+
+  .home-education-mobile__body {
+    flex: 1 1 auto;
+  }
+
+  .home-education-mobile__degree {
+    font-weight: 600;
+  }
+
+  .home-education-mobile__meta {
+    margin-top: 0.1rem;
+    color: var(--global-text-color-light);
+  }
+
+  .home-education-mobile__school {
+    color: var(--global-text-color);
+  }
+
+  .home-education-mobile__years {
+    margin-left: 0.4rem;
+    color: var(--global-text-color);
+  }
+
+  /* 가장 작은 화면(Contact 아래에 Education 세로 배치일 때): Education을 조금 더 아래로 */
+  @media screen and (max-width: ($small - 1)) {
+    .home-education-mobile {
+      margin-top: 0.75rem;
+    }
+  }
+
+  /* small 이상 ~ large 미만: Contact / Education을 좌우로 양분 */
+  @include breakpoint($small) {
+    .home-contact-row {
+      flex-direction: row;
+    }
+
+    .home-contact-mobile,
+    .home-education-mobile {
+      flex: 1 1 0;
+    }
+  }
+
+  /* 모바일에서는 기존 사이드바용 프로필은 숨김 */
+  .author-profile-desktop {
+    display: none;
+  }
+}
+
+/* 데스크톱(925px 이상)에서 Home 본문 오른쪽에 Education만 표시 */
+@include breakpoint($large) {
+  .home-education-desktop {
+    display: block;
+    max-width: 36rem;
+    margin: 1.5rem 0 0;
+    text-align: left;
+  }
+
+  .home-education-desktop__title {
+    font-weight: 600;
+    font-size: $type-size-5;
+    margin-bottom: 0.4rem;
+  }
+
+  .home-education-desktop__item {
+    margin-top: 0.25rem;
+    font-size: $type-size-6;
+    display: flex;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+
+  .home-education-desktop__icon {
+    margin-top: 0.15rem;
+  }
+
+  .home-education-desktop__body {
+    flex: 1 1 auto;
+  }
+
+  .home-education-desktop__degree {
+    font-weight: 600;
+  }
+
+  .home-education-desktop__meta {
+    margin-top: 0.1rem;
+  }
+
+  .home-education-desktop__school,
+  .home-education-desktop__years {
+    color: var(--global-text-color);
+  }
+
+  .home-education-desktop__years {
+    margin-left: 0.4rem;
   }
 }
 
@@ -199,6 +489,13 @@
   }
 }
 
+.sidebar .author__compact {
+  display: block;
+  @media screen and (min-width: 1024px) {
+    display: none;
+  }
+}
+
 .author__pronouns {
   margin: 0;
 
@@ -214,6 +511,64 @@
   @include breakpoint($large) {
     margin-top: 10px;
     margin-bottom: 20px;
+  }
+}
+
+.author__email-icon {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.author__email-text {
+  display: inline-block;
+}
+
+/* 기본(모바일, 1024px 미만): Gmail / KAIST Email 라벨만 보이게 */
+.author__email-text-full {
+  display: none;
+}
+
+.author__email-link {
+  cursor: pointer;
+  text-decoration: none;
+  position: relative;
+}
+
+.author__email-link:hover {
+  text-decoration: underline;
+}
+
+.author__email-link::after {
+  content: "Copy Email";
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  transform: translate(-50%, 0.3rem);
+  padding: 0.15rem 0.45rem;
+  font-size: $type-size-7;
+  color: var(--global-bg-color);
+  background: var(--global-text-color);
+  border-radius: $border-radius;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  z-index: 5;
+}
+
+.author__email-link:hover::after {
+  opacity: 1;
+  transform: translate(-50%, 0.1rem);
+}
+
+/* 1024px 이상(사이드바에 location/employer 보일 때): 전체 이메일 주소 보이게, 라벨 숨김 */
+@media screen and (min-width: $sidebar-screen-min-width) {
+  .author__email-text-full {
+    display: inline-block;
+  }
+
+  .author__email-text-label {
+    display: none;
   }
 }
 
@@ -305,6 +660,12 @@
 
   li {
     white-space: nowrap;
+  }
+
+  /* Location, employer 등 긴 텍스트는 줄바꿈 허용 */
+  li.author__desktop {
+    white-space: normal;
+    word-break: break-word;
   }
 
   a {

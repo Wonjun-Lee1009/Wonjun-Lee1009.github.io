@@ -1,0 +1,8 @@
+{% assign patents_sorted = site.patents | sort: "date" | reverse %}
+{% if patents_sorted.size > 0 %}
+<ul>
+  {% for post in patents_sorted %}
+    {% include archive-single-patent-cv.html %}
+  {% endfor %}
+</ul>
+{% endif %}

@@ -1,0 +1,53 @@
+---
+permalink: /
+author_profile: true
+---
+
+{% include base_path %}
+
+<div class="home-top-spacer" aria-hidden="true"></div>
+{% if site.home_intro %}
+<div class="home-intro">{{ site.home_intro | markdownify }}</div>
+{% endif %}
+{% include home-contact.html %}
+
+{% for nav in site.home_nav %}
+  {% if nav.children %}
+    <section id="{{ nav.id }}" class="home-section home-section--group">
+      <h2 class="home-section__title">{{ nav.title }}</h2>
+      {% for sub in nav.children %}
+        <div id="{{ sub.id }}" class="home-section__sub">
+          <h3 class="home-section__subtitle">{{ sub.title }}</h3>
+          {% if sub.type == "research_experience" %}
+            {% include research-experience.html %}
+          {% elsif sub.type == "patents" %}
+            {% include patents.html %}
+          {% elsif sub.type == "projects" %}
+            {% include projects.html %}
+          {% elsif sub.type == "academic_activities" %}
+            {% include academic-activities.html %}
+          {% else %}
+            <ul>
+              {% assign coll = site[sub.collection] %}
+              {% for post in coll reversed %}
+                {% if sub.include == "archive-single-talk-cv.html" %}
+                  {% include archive-single-talk-cv.html %}
+                {% elsif sub.include == "archive-single-cv.html" %}
+                  {% include archive-single-cv.html %}
+                {% endif %}
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </div>
+      {% endfor %}
+      <p class="home-section__group-footer">Academic activity, Honors &amp; Awards, Presentation, Extracurricular activity, and other information are available on my CV. <a href="{{ base_path }}/files/cv.pdf" target="_blank" rel="noopener noreferrer" class="home-section__group-footer-pdf"><i class="fas fa-file-alt" aria-hidden="true"></i> View CV as PDF</a></p>
+    </section>
+  {% else %}
+    {% if nav.type == "publications" %}
+      <section id="{{ nav.id }}" class="home-section">
+        <h2 class="home-section__title">{{ nav.title }}</h2>
+        {% include publications-list.html %}
+      </section>
+    {% endif %}
+  {% endif %}
+{% endfor %}

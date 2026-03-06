@@ -9,39 +9,115 @@
 # Basic Site Settings
 locale                   : "en-US"
 site_theme               : "default" # The available themes options are "default", "air", "sunrise", "mint", "dirt" and "contrast"
-title                    : "Your Name / Site Title"
+title                    : "Wonjun Lee"
 title_separator          : "-"
-name                     : &name "Your Name"
-description              : &description "Your Name's academic portfolio"   # Update this with a general description of your site, this is the default if not overridden by a page
-url                      : https://academicpages.github.io # The base hostname & protocol for your site e.g. "https://[your GitHub username].github.io",
+name                     : &name "Wonjun Lee"
+description              : &description "Wonjun Lee's academic portfolio"   # Update this with a general description of your site, this is the default if not overridden by a page
+# 홈 상단 인트로 문구 (Publications 위). 마크다운 사용 가능 (**볼드**, - 리스트 등)
+home_intro               : |
+  I am a PhD student in EE at KAIST working on multimodal and foundation models.
+  As AI's role expands across various fields, building **trustworthy AI** is crucial. I am particularly interested in AI security, as vulnerabilities compromise reliability and fairness.
+
+  Additionally, as humans rely on various senses for judgment, I focus on research in **multi-modal learning** and **vision foundation models**. My goal is to help bridge the understanding between AI and humans.
+
+  My work explores the following, but not limited to:
+  - **Multimedia Forensics**: detecting forgeries, synthetic image, and deepfakes
+  - **AI Security**: adversarial attack, jailbreaking and their defense
+  - **Multi-Modal Learning**
+  - **Vision Foundation Models**
+
+# 홈 상단 탭/섹션 구성. 순서대로 표시되며, 항목을 빼면 헤더와 본문에서 모두 제외됨.
+# - id: URL 해시 및 탭 식별자
+# - title: 탭/섹션 제목
+# - type: "publications" → Publications 리스트 (고정 include)
+# - children: 있으면 그룹 섹션(예: Others)으로, 하위 항목이 하위 카테고리로 표시됨
+#   - id, title: 하위 섹션 id/제목
+#   - collection: Jekyll 컬렉션 이름 (talks, teaching 등)
+#   - include: 각 항목 렌더용 include 파일명
+home_nav:
+  - id: publications
+    title: Publications
+    type: publications
+  - id: others
+    title: Others
+    children:
+      - id: research-experience
+        title: Research Experience
+        type: research_experience
+      - id: patents
+        title: Patents
+        type: patents
+      - id: projects
+        title: Projects
+        type: projects
+      # - id: talks
+      #   title: Talks
+      #   collection: talks
+      #   include: archive-single-talk-cv.html
+      # - id: teaching
+      #   title: Teaching
+      #   collection: teaching
+      #   include: archive-single-cv.html
+      # - id: academic-activities
+      #   title: Academic Activities
+      #   type: academic_activities
+
+# Academic Activities (Others 하위, config만 사용) — title, year(선택)
+academic_activities:
+  - title: "Program Committee, CVPR"
+    year: "2025"
+  - title: "Conference Reviewer, VCIP"
+    year: "2024"
+  - title: "Journal Reviewer, TCSVT"
+    year: "2025 -"
+
+url                      : https://wonjun-lee1009.github.io # The base hostname & protocol for your site e.g. "https://[your GitHub username].github.io",
                                                            # or if you already have some other page hosted on Github then use "https://[your GitHub username].github.io/[Your Repo Name]"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
-repository               : "academicpages/academicpages.github.io"
+repository               : "Wonjun-Lee1009/Wonjun-Lee1009.github.io"
 
 # Site Author - The following control what appear as part of the author content on the side bar.
 #               If a field is blank the icon and link will not appear, otherwise it will be shown.
 #               Additional customization can be done by editing /_includes/author-profile.html
 author:
   # Biographic information
-  avatar           : "profile.png"
-  name             : "Your Sidebar Name"
+  avatar           : "profile.jpeg"
+  name             : "Wonjun Lee"
   pronouns         : # example: "she/her"  
-  bio              : "Short biography for the left-hand sidebar"
-  location         : "Earth"
-  employer         : "Red Brick University"
+  bio              : "I am a PhD student in EE at KAIST working on multimodal and foundation models."
+  location         : "291 Daehak-ro, Yuseong-gu, Daejeon 34141, Republic of Korea"
+  employer         : "KAIST\n(Korea Advanced Institute of Science and Technology)"
   uri              : # URL
-  email            : "none@example.org" 
+  email            : "dpenguin2000@gmail.com"
+  email_secondary  : "dpenguin@kaist.ac.kr"
+  email_secondary_label : "KAIST Email"  # 두 번째 이메일 표시 이름 (비우면 "Email (Secondary)")
+
+  # Education entries shown in the Home > Contact/Education boxes
+  # 원하는 만큼 항목을 추가/수정하세요.
+  education:
+    - degree : "Ph.D. in Electrical Engineering"
+      school : "KAIST (Korea Advanced Institute of Science and Technology)"
+      years  : "2025 – present"
+    - degree : "M.S. in Electrical Engineering"
+      school : "KAIST"
+      years  : "2023 – 2025"
+    - degree : "B.S. in EE & CS (Double Major)"
+      school : "KAIST"
+      years  : "2019 – 2023"
+    - degree : "High School Diploma"
+      school : "GSHS (Gyeonggi Science High School for the Gifted)"
+      years  : "2016 – 2019"
 
   # Academic websites
   academia         : # URL
   arxiv            : # URL - Update with the correct link to your profile
-  googlescholar    : "https://scholar.google.com/citations?user=PS_CX0AAAAAJ"
+  googlescholar    : "https://scholar.google.com/citations?user=CYN1UikAAAAJ"
   inspire-hep      : # URL
   impactstory      : # URL
-  orcid            : "https://orcid.org/yourorcidurl"
+  orcid            : "https://orcid.org/0009-0004-1012-838X"
   semantic         : # URL
   ssrn             : # URL
-  pubmed           : "https://www.ncbi.nlm.nih.gov/pubmed/?term=john+snow"
+  pubmed           : # URL
   researchgate     : # URL
   scopus           : # URL
   zotero           : # URL
@@ -51,13 +127,13 @@ author:
   bitbucket        : # Username - Update with your username on the site
   codepen          : # Username
   dribbble         : # Username
-  github           : "academicpages"
+  github           : "Wonjun-Lee1009"
   kaggle           : # Username  
   stackoverflow    : # User number or user number and name (i.e., use "1" or "1/jeff-atwood")    
 
   # Social media
   artstation       : # Username
-  bluesky          : "bsky.app" # Replace this with you Bluesky username
+  bluesky          : # Replace this with you Bluesky username
   facebook         : # Username
   flickr           : # Username
   foursquare       : # Username
@@ -66,7 +142,7 @@ author:
   keybase          : # Username
   instagram        : # Username
   lastfm           : # Username
-  linkedin         : # Username
+  linkedin         : "wonjun-lee-92aa3b34a"
   mastodon         : # URL
   medium           : # URL
   pinterest        : # Username
@@ -86,7 +162,7 @@ author:
 publication_category:
   books:
     title: 'Books'
-  manuscripts:
+  journals:
     title: 'Journal Articles'    
   conferences:
     title: 'Conference Papers'
@@ -233,6 +309,15 @@ collections:
   talks:
     output: true
     permalink: /:collection/:path/
+  research_experience:
+    output: true
+    permalink: /:collection/:path/
+  patents:
+    output: true
+    permalink: /:collection/:path/
+  projects:
+    output: true
+    permalink: /:collection/:path/
 
 
 # These settings control how pages and collections are included in the site
@@ -290,6 +375,27 @@ defaults:
       layout: talk
       author_profile: true
       share: true
+  # _research_experience
+  - scope:
+      path: ""
+      type: research_experience
+    values:
+      layout: single
+      author_profile: true
+  # _patents
+  - scope:
+      path: ""
+      type: patents
+    values:
+      layout: single
+      author_profile: true
+  # _projects
+  - scope:
+      path: ""
+      type: projects
+    values:
+      layout: single
+      author_profile: true
 
 
 # Sass/SCSS

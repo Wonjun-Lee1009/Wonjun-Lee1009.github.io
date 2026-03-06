@@ -5,7 +5,7 @@
 #main {
   @include container;
   @include clearfix;
-  margin-top: 2em;
+  margin-top: 0em;
   padding-left: 1em;
   padding-right: 1em;
   animation: intro 0.3s both;
@@ -14,13 +14,42 @@
   @include breakpoint($x-large) {
     max-width: $x-large;
   }
+
+  /* 홈: 상단 여백 — 헤더와 본문 사이 간격은 .archive padding-top으로 */
+  &.main--home {
+    margin-top: 0;
+    padding-top: 0;
+    .archive {
+      margin-top: 0;
+      padding-top: 4em;
+    }
+  }
+}
+
+/* 홈 상단 여백 (프로필/링크와 인트로 사이) — 모바일에서 축소 */
+.home-top-spacer {
+  height: 4em;
+  min-height: 4em;
+}
+
+/* 모바일/태블릿(large 이전)에서는 전체 여백을 조금 줄여서 왼쪽 정렬 느낌 강화 */
+@media screen and (max-width: ($large - 1)) {
+  #main {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+
+  /* 홈: 프로필/링크와 인트로 글씨 사이 간격 축소 (single 레이아웃은 .archive 없음) */
+  .home-top-spacer {
+    height: 0.75em;
+    min-height: 0.75em;
+  }
 }
 
 .page {
   @include breakpoint($large) {
     @include span(10 of 12 last);
-    @include prefix(0.5 of 12);
-    @include suffix(2 of 12);
+    @include prefix(0.7 of 12);
   }
 
   .page__inner-wrap {
@@ -43,9 +72,41 @@
   }
 }
 
+/* Top nav current item highlighting (used by scrollspy on home) */
+#site-nav .masthead__menu-item > a {
+  border-bottom: 2px solid transparent;
+  padding-bottom: 0.15rem;
+}
+
+#site-nav .masthead__menu-item.selected > a {
+  border-bottom-color: var(--global-link-color);
+  font-weight: 600;
+}
+
 .page__lead {
   font-family: $global-font-family;
   font-size: $type-size-4;
+}
+
+/* Publication page: image below venue, above PDF/links */
+.page__publication-image {
+  margin: 1em 0 1.25em;
+  max-width: 100%;
+  background-color: #fff;
+
+  img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: $border-radius;
+    background-color: #fff;
+  }
+}
+
+.page__publication-image-caption {
+  margin-top: 0.5em;
+  font-size: $type-size-6;
+  color: var(--global-text-color-light);
 }
 
 .page__content {
@@ -53,6 +114,13 @@
   h2 {
     padding-bottom: 0.5em;
     border-bottom: 1px solid var(--global-border-color);
+  }
+
+  /* Publication category headings without underline */
+  .pub-category-title {
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 0.75rem;
   }
 
   p, li, dl {
@@ -104,6 +172,228 @@
   blockquote + .small {
     margin-top: -1.5em;
     padding-left: 1.25rem;
+  }
+}
+
+/* Intro text above first section — 홈은 single 레이아웃(.page__content)이라 .archive 없음 */
+#main .home-intro,
+#main .archive .home-intro {
+  margin-top: 0;
+  display: block;
+  font-size: $type-size-5-5; /* 글자 크기: $type-size-4(1.25em), $type-size-5(1em), $type-size-6(0.75em) 등으로 변경 */
+}
+
+/* Home top-level sections */
+.home-section {
+  margin-top: 3rem;
+}
+
+/* 첫 섹션(#home)은 상단 여백 없음 — 진입/Home 탭 클릭 시 동일한 맨 위 맞춤 */
+#main .archive .home-section:first-child {
+  margin-top: 0;
+}
+
+/* 첫 섹션 제목: 전역 h2 margin-top(2em) 제거 — 값 없이 자리만 차지하는 공백 방지 */
+#main .archive .home-section:first-child .home-section__title {
+  margin-top: 0;
+}
+
+.home-section__title {
+  font-size: $type-size-3;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid var(--global-border-color);
+  padding-bottom: 0.4rem;
+}
+
+/* 그룹 섹션(Others 등) — 아래 한 줄로 하위 전체(Talks, Teaching, Research Exp, Patents) 폰트 크기 조절 */
+.home-section--group {
+  font-size: 0.9rem; /* 1 = 기본, 0.9 = 90%, 0.85 = 85%, 0.8 = 80% */
+}
+
+.home-section--group .home-section__sub {
+  margin-top: 2.5rem;
+
+  &:first-of-type {
+    margin-top: 0.5rem;
+  }
+
+  &:last-of-type {
+    margin-bottom: 3rem; /* footer(Academic activity...) 위 간격 */
+  }
+}
+
+.home-section--group .home-section__subtitle {
+  font-size: $type-size-4;
+  font-weight: 600;
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  color: var(--global-text-color);
+}
+
+.home-section__group-footer {
+  margin-top: 0;
+  padding-top: 5rem; /* margin은 접히므로 padding으로 위 간격 확보 */
+  margin-bottom: 0;
+  font-size: $type-size-6;
+  color: var(--global-text-color-light);
+
+  .home-section__group-footer-pdf {
+    display: none;
+  }
+}
+
+@media screen and (max-width: ($large - 1)) {
+  .home-section__group-footer .home-section__group-footer-pdf {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-left: 0.5rem;
+    padding: 0.2rem 0.5rem;
+    font-size: $type-size-6;
+    color: var(--global-bg-color);
+    background: var(--global-text-color);
+    border-radius: 6px;
+    text-decoration: none;
+
+    i {
+      font-size: 1em;
+    }
+
+    &:hover {
+      opacity: 0.88;
+    }
+  }
+}
+
+/* Research Experience (collection: _research_experience) — 제목/내용 크기, 위치·기간 한 줄 아래 */
+.archive__item--research {
+  .research-exp__title {
+    font-size: $type-size-5;
+    margin-bottom: 0.2em;
+  }
+
+  .research-exp__program-line,
+  .research-exp__meta {
+    font-size: $type-size-6;
+    margin-top: 0;
+    margin-bottom: 0.15em;
+    font-style: italic;
+    color: var(--global-text-color-light);
+  }
+
+  .research-exp__meta {
+    margin-bottom: 0;
+  }
+}
+
+.research-exp__company {
+  font-weight: 700;
+}
+
+.research-exp__unit {
+  font-weight: 400;
+  font-style: italic;
+}
+
+.research-exp__program {
+  font-style: italic;
+}
+
+/* Patents (collection: _patents) — 특허제목, 특허번호·연도, 내용(하위 bullet) */
+.archive__item--patent {
+  .patent__title {
+    font-size: $type-size-5;
+    margin-bottom: 0.2em;
+  }
+
+  .patent__meta {
+    font-size: $type-size-6;
+    margin-top: 0;
+    margin-bottom: 0.35em;
+    font-style: italic;
+    color: var(--global-text-color-light);
+  }
+
+  .patent__content-list {
+    font-size: $type-size-6;
+    margin: 0 0 0 1.25rem;
+    padding-left: 1rem;
+    color: var(--global-text-color-light);
+  }
+
+  .patent__content-item {
+    margin-bottom: 0.2em;
+  }
+}
+
+/* Projects (collection: _projects) — patent와 동일 구조: 제목, 기간·역할, 내용(하위 bullet) */
+.archive__item--project {
+  .project__title {
+    font-size: $type-size-5;
+    margin-bottom: 0.2em;
+  }
+
+  .project__meta {
+    font-size: $type-size-6;
+    margin-top: 0;
+    margin-bottom: 0.35em;
+    font-style: italic;
+    color: var(--global-text-color-light);
+  }
+
+  .project__content-list {
+    font-size: $type-size-6;
+    margin: 0 0 0 1.25rem;
+    padding-left: 1rem;
+    color: var(--global-text-color-light);
+  }
+
+  .project__content-item {
+    margin-bottom: 0.2em;
+  }
+}
+
+/* Academic Activities (config: site.academic_activities) */
+.archive__item--activity {
+  font-size: $type-size-6;
+  .activity__year {
+    color: var(--global-text-color-light);
+    font-style: italic;
+  }
+}
+
+/* Home sections + sticky subnav */
+.home-section-nav {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  padding: 0.5rem 0;
+  background: var(--global-bg-color);
+  border-bottom: 1px solid var(--global-border-color);
+
+  .home-section-link {
+    font-size: $type-size-6;
+    text-decoration: none;
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    color: var(--global-text-color);
+
+    &.is-active {
+      border-color: var(--global-link-color);
+      background: rgba(0,0,0,0.03);
+      color: var(--global-link-color);
+    }
+
+    &:hover {
+      text-decoration: none;
+      border-color: var(--global-border-color);
+      background: rgba(0,0,0,0.02);
+    }
   }
 }
 

@@ -1,0 +1,55 @@
+{% include base_path %}
+
+<ul>
+{% assign pub_list = site.publications | where_exp: "item", "item.dummy != true" %}
+{% for post in pub_list reversed %}
+  <li>
+    <strong>{{ post.title }}</strong>
+    {% if post.oral %}<span class="archive__item-badge archive__item-badge--oral">Oral</span>{% endif %}
+    {% if post.poster %}<span class="archive__item-badge archive__item-badge--poster">Poster</span>{% endif %}
+    {% if post.authors or post.venue %}
+      <br/>
+      <span style="font-size: smaller">
+        {% if post.authors %}
+          {{ post.authors | replace: 'Wonjun Lee', '<strong>Wonjun Lee</strong>' }}
+        {% endif %}
+        {% if post.venue %}
+          {% if post.authors %}<br/>{% endif %}
+          <i>{{ post.venue | replace: '(', '(<strong>' | replace: ')', '</strong>)' }}</i>{% if post.date %}, {{ post.date | default: "1900-01-01" | date: "%Y" }}{% endif %}
+        {% endif %}
+      </span>
+    {% endif %}
+
+    {% assign project_href = post.projecturl %}
+    {% if project_href == nil or project_href == '' %}
+      {% assign project_href = base_path | append: post.url %}
+    {% endif %}
+
+    {% if post.paperurl or post.codeurl or post.slidesurl or post.posterurl or post.bibtexurl %}
+      <br/>
+      <span style="font-size: smaller">
+        {% if post.paperurl %}
+          <a href="{{ post.paperurl }}" target="_blank" rel="noopener noreferrer">Paper</a>
+        {% endif %}
+        {% if post.codeurl %}
+          {% if post.paperurl %} | {% endif %}
+          <a href="{{ post.codeurl }}" target="_blank" rel="noopener noreferrer">Code</a>
+        {% endif %}
+        {% if post.slidesurl %}
+          {% if post.paperurl or post.codeurl %} | {% endif %}
+          <a href="{{ post.slidesurl }}" target="_blank" rel="noopener noreferrer">Slides</a>
+        {% endif %}
+        {% if post.posterurl %}
+          {% if post.paperurl or post.codeurl or post.slidesurl %} | {% endif %}
+          <a href="{{ post.posterurl }}" target="_blank" rel="noopener noreferrer">Poster</a>
+        {% endif %}
+        {% if post.bibtexurl %}
+          {% if post.paperurl or post.codeurl or post.slidesurl or post.posterurl %} | {% endif %}
+          <a href="{{ post.bibtexurl }}">Bibtex</a>
+        {% endif %}
+      </span>
+    {% endif %}
+  </li>
+{% endfor %}
+</ul>
+

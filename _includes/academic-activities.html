@@ -1,0 +1,13 @@
+{% if site.academic_activities and site.academic_activities.size > 0 %}
+<ul>
+  {% for item in site.academic_activities %}
+  <div class="list__item">
+    <article class="archive__item archive__item--activity" itemscope itemtype="http://schema.org/CreativeWork">
+      <li>
+        <span class="activity__title">{{ item.title }}</span>{% if item.year %} <span class="activity__year">· {{ item.year }}</span>{% endif %}
+      </li>
+    </article>
+  </div>
+  {% endfor %}
+</ul>
+{% endif %}

@@ -12,13 +12,32 @@ layout: default
   {% endunless %}
 {% endif %}
 
-<div id="main" role="main">
+{% include base_path %}
+
+<div id="main" role="main"{% if page.url == '/' %} class="main--home"{% endif %}>
   {% include sidebar.html %}
 
   <div class="archive">
-    {% unless page.header.overlay_color or page.header.overlay_image %}
-      <h1 class="page__title">{{ page.title }}</h1>
-    {% endunless %}
+    {% if page.title and page.header.overlay_color == nil and page.header.overlay_image == nil and page.header.image == nil %}
+      <h1 class="page__title">
+        {{ page.title }}
+        {% if page.permalink == '/cv/' %}
+          <a href="{{ base_path }}/files/cv.pdf"
+             class="btn"
+             style="margin-left: 0.75rem; padding: 0.22rem 0.6rem; font-size: 0.5em; text-decoration: none;"
+             target="_blank"
+             rel="noopener noreferrer">
+            View as PDF
+          </a>
+        {% endif %}
+      </h1>
+    {% endif %}
+    {% if page.url == '/' or page.url == '' or page.permalink == '/' %}
+    <div class="archive__home-top" style="padding-top: 4em; min-height: 1px;">
+    {% endif %}
     {{ content }}
+    {% if page.url == '/' or page.url == '' or page.permalink == '/' %}
+    </div>
+    {% endif %}
   </div>
 </div>

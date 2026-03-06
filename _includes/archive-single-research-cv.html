@@ -1,0 +1,17 @@
+{% include base_path %}
+
+<div class="list__item">
+  <article class="archive__item archive__item--research" itemscope itemtype="http://schema.org/CreativeWork">
+    <li>
+      <h3 class="archive__item-title research-exp__title" itemprop="headline">
+        <span class="research-exp__company">{{ post.company_name }}</span>{% if post.unit %} <span class="research-exp__unit">{{ post.unit }}</span>{% endif %}
+      </h3>
+      <p class="archive__item-excerpt research-exp__program-line" itemprop="description">
+        <span class="research-exp__program">{{ post.program }}</span>
+      </p>
+      <p class="research-exp__meta">
+        {{ post.location }} · {{ post.period }}
+      </p>
+    </li>
+  </article>
+</div>

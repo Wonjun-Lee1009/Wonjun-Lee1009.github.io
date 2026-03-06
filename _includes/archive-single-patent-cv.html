@@ -1,0 +1,21 @@
+{% include base_path %}
+
+<div class="list__item">
+  <article class="archive__item archive__item--patent" itemscope itemtype="http://schema.org/CreativeWork">
+    <li>
+      <h3 class="archive__item-title patent__title" itemprop="headline">
+        {{ post.patent_title }}
+      </h3>
+      <p class="patent__meta">
+        {{ post.patent_number }} · {{ post.year }}
+      </p>
+      {% if post.content_items and post.content_items.size > 0 %}
+      <ul class="patent__content-list">
+        {% for item in post.content_items %}
+        <li class="patent__content-item">{{ item }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </li>
+  </article>
+</div>

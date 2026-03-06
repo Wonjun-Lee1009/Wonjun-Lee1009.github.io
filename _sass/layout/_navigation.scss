@@ -172,14 +172,15 @@
    Priority plus navigation
    ========================================================================== */
 
-.greedy-nav {
+#site-nav,
+.wonjun-nav {
   position: relative;
   min-width: 250px;
   background: var(--global-bg-color);
 
   a {
-    display: block;
-    margin: 0 1rem;
+    display: inline-block; /* 밑줄 길이를 텍스트 폭에 맞추기 위해 */
+    margin: 0;
     padding: 0.5rem 0;
     color: var(--global-masthead-link-color);
     text-decoration: none;
@@ -189,10 +190,13 @@
     }
   }
 
-  button {
+  /* nav toggle (hamburger) */
+  .wonjun-nav__toggle {
     position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
     height: 2.5rem;
-    right: 0;
     padding: 0 0.5rem;
     border: 0;
     outline: none;
@@ -200,28 +204,27 @@
     color: var(--global-text-color);
     cursor: pointer;
     z-index: 100;
+    display: none; /* desktop default: hidden */
   }
 
-  .visible-links {
-    display: table;
+  /* 모바일 전용 중앙 제목 (데스크톱에서는 숨김) */
+  .wonjun-nav__mobile-title {
+    display: none;
+  }
+
+  .wonjun-nav__links {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* 왼쪽 정렬 */
+    gap: 2rem; /* 메뉴 간 등간격 */
 
     li {
-      display: table-cell;
+      display: inline-block;
       vertical-align: middle;
 
       &:first-child {
         font-weight: bold;
         text-wrap: wrap;
-
-        a {
-          margin-left: 0;
-        }
-      }
-
-      &:last-child {
-        a {
-          margin-right: 0;
-        }
       }
     }
 
@@ -231,90 +234,127 @@
         display: flex;
         justify-content: center;
         cursor: pointer;
-      }
-    }
 
-    a {
-      position: relative;
-
-      &:before {
-        content: "";
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        height: 4px;
-        background: var(--global-border-color);
-        width: 100%;
-        -webkit-transition: $global-transition;
-        transition: $global-transition;
-        -webkit-transform: scaleX(0);
-            -ms-transform: scaleX(0);
-                transform: scaleX(0); /* hide*/
-      }
-
-      &:hover:before {
-        -webkit-transform: scaleX(1);
-            -ms-transform: scaleX(1);
-                transform: scaleX(1); /* reveal*/
+        /* 토글 아이콘에는 밑줄 애니메이션 제거 */
+        &::before {
+          display: none;
+        }
       }
     }
   }
 
-  .hidden-links {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    margin-top: 15px;
-    padding: 5px;
-    border: 1px solid var(--global-border-color);
-    border-radius: $border-radius;
-    background: var(--global-bg-color);
-    box-shadow: 0 0 10px rgba(#000, 0.25);
-
-    a {
-      margin: 0;
-      padding: 10px 20px;
-      font-size: $type-size-5;
-
-      &:hover {
-        color: var(--global-masthead-link-color-hover);
-        background: var(--global-border-color);
-      }
-    }
+  /* 상단 탭 + 모바일 제목 + 드롭박스 안 링크 모두 동일한 밑줄 애니메이션 사용 */
+  .wonjun-nav__links a,
+  .wonjun-nav__dropdown a,
+  .wonjun-nav__mobile-title a {
+    position: relative;
 
     &:before {
       content: "";
       position: absolute;
-      top: -11px;
-      right: 10px;
-      width: 0;
-      border-style: solid;
-      border-width: 0 10px 10px;
-      border-color: var(--global-border-color) transparent;
-      display: block;
-      z-index: 0;
+      left: 0;
+      bottom: 0;
+      height: 4px;
+      background: var(--global-border-color);
+      width: 100%;
+      -webkit-transition: $global-transition;
+      transition: $global-transition;
+      -webkit-transform: scaleX(0);
+          -ms-transform: scaleX(0);
+              transform: scaleX(0); /* hide*/
     }
 
-    &:after {
-      content: "";
-      position: absolute;
-      top: -10px;
-      right: 10px;
-      width: 0;
-      border-style: solid;
-      border-width: 0 10px 10px;
-      border-color: var(--global-bg-color) transparent;
+    /* hover 또는 현재 섹션(selected)일 때 밑줄 표시 */
+    &:hover:before,
+    .masthead__menu-item.selected &::before {
+      -webkit-transform: scaleX(1);
+          -ms-transform: scaleX(1);
+              transform: scaleX(1); /* reveal*/
+    }
+  }
+
+  /* Make theme toggle sit at the far right of the nav */
+  .wonjun-nav__links {
+    padding-right: 3rem; /* space reserved for theme toggle */
+  }
+
+  /* 기본: 데스크톱에서는 드롭다운을 전혀 표시하지 않음 */
+  .wonjun-nav__dropdown {
+    display: none;
+  }
+
+  #theme-toggle {
+    position: absolute;
+    right: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  /* Mobile layout: compact top bar + dropdown menu (up to $large = 925px) */
+  @media screen and (max-width: ($large - 1)) {
+    .wonjun-nav__toggle {
       display: block;
-      z-index: 1;
     }
 
-    li {
+    /* 모바일 상단: 중앙 제목 + 양 끝 아이콘 레이아웃 */
+    .wonjun-nav__mobile-title {
       display: block;
-      border-bottom: 1px solid var(--global-border-color);
+      width: 100%;
+      text-align: center;
 
-      &:last-child {
-        border-bottom: none;
+      a {
+        font-weight: 700;
       }
+    }
+
+    /* 기본 상태: 상단 바에는 중앙 제목과 테마 토글만 보이게 */
+    .wonjun-nav__links {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end; /* 테마 토글만 우측으로 */
+      padding: 0;
+
+      > li {
+        display: none; /* 기본적으로는 모두 숨김 */
+      }
+
+      > .wonjun-nav__tail {
+        display: block; /* 테마 토글만 표시 */
+      }
+    }
+
+    /* 드롭다운 박스: 햄버거 바로 아래, 왼쪽 정렬 작은 박스 */
+    .wonjun-nav__dropdown {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      margin-top: 0.4rem;
+      padding: 0.4rem 0;
+      min-width: 190px;
+      max-width: 260px;
+      background: var(--global-bg-color);
+      border: 1px solid var(--global-border-color);
+      border-radius: $border-radius;
+      box-shadow: 0 0 10px rgba(#000, 0.08);
+      display: none;
+
+      .masthead__menu-item {
+        padding: 0;
+
+        a {
+          margin: 0 1.2rem;
+          /* 패딩은 기본 내비 링크(0.5rem 0)를 그대로 사용해서
+             데스크톱 호버 밑줄 위치와 동일하게 맞춘다. */
+        }
+      }
+    }
+
+    .wonjun-nav__dropdown.is-open {
+      display: block;
+    }
+
+    .wonjun-nav__links > .masthead__menu-item--lg {
+      font-weight: 700;
     }
   }
 }
@@ -440,5 +480,12 @@
     @include breakpoint($medium) {
       display: block;
     }
+  }
+}
+
+/* B안: 925px 이하에서는 항상 햄버거 토글이 보이도록 전역 강제 */
+@media screen and (max-width: ($large - 1)) {
+  #site-nav .wonjun-nav__toggle {
+    display: block !important;
   }
 }

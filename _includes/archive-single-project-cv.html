@@ -1,0 +1,23 @@
+{% include base_path %}
+
+<div class="list__item">
+  <article class="archive__item archive__item--project" itemscope itemtype="http://schema.org/CreativeWork">
+    <li>
+      <h3 class="archive__item-title project__title" itemprop="headline">
+        {{ post.project_title }}
+      </h3>
+      {% if post.period or post.organization %}
+      <p class="project__meta">
+        {% if post.organization %}{{ post.organization }}{% endif %}{% if post.organization and post.period %} · {% endif %}{% if post.period %}{{ post.period }}{% endif %}
+      </p>
+      {% endif %}
+      {% if post.content_items and post.content_items.size > 0 %}
+      <ul class="project__content-list">
+        {% for item in post.content_items %}
+        <li class="project__content-item">{{ item }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </li>
+  </article>
+</div>

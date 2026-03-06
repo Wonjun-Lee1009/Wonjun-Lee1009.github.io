@@ -1,0 +1,104 @@
+{% include base_path %}
+
+{% if page.author and site.data.authors[page.author] %}
+  {% assign author = site.data.authors[page.author] %}
+{% else %}
+  {% assign author = site.author %}
+{% endif %}
+
+<div class="home-contact-row">
+  <div class="home-contact-mobile">
+    <div class="home-contact-mobile__title">Contact</div>
+
+    {% if author.location %}
+      <div class="home-contact-mobile__item">
+        <span class="home-contact-mobile__label">
+          <i class="fas fa-fw fa-location-dot icon-pad-right" aria-hidden="true"></i>Location
+        </span>
+        <span class="home-contact-mobile__value">
+          {{ author.location }}
+        </span>
+      </div>
+    {% endif %}
+
+    {% if author.email or author.email_secondary %}
+      <div class="home-contact-mobile__item">
+        <span class="home-contact-mobile__label">
+          <i class="fas fa-fw fa-envelope icon-pad-right" aria-hidden="true"></i>Email
+        </span>
+        <span class="home-contact-mobile__value">
+          {% if author.email %}{{ author.email | replace: '@', ' [at] ' }}{% endif %}
+          {% if author.email_secondary %}{% if author.email %}<br>{% endif %}{{ author.email_secondary | replace: '@', ' [at] ' }}{% endif %}
+        </span>
+      </div>
+    {% endif %}
+
+    {% if author.linkedin %}
+      <div class="home-contact-mobile__item home-contact-mobile__item--linkedin">
+        <span class="home-contact-mobile__label">
+          <i class="fab fa-fw fa-linkedin icon-pad-right" aria-hidden="true"></i>LinkedIn
+        </span>
+        <span class="home-contact-mobile__value">
+          <a href="https://www.linkedin.com/in/{{ author.linkedin }}" target="_blank" rel="noopener noreferrer">
+            View profile
+          </a>
+        </span>
+      </div>
+    {% endif %}
+  </div>
+
+  {% if author.education %}
+    <div class="home-education-mobile">
+      <div class="home-education-mobile__title">Education</div>
+
+      {% for edu in author.education %}
+        <div class="home-education-mobile__item">
+          <div class="home-education-mobile__icon">
+            <i class="fas fa-fw fa-graduation-cap" aria-hidden="true"></i>
+          </div>
+          <div class="home-education-mobile__body">
+            <div class="home-education-mobile__degree">
+              {{ edu.degree }}
+            </div>
+            <div class="home-education-mobile__meta">
+              {% if edu.school %}
+                <span class="home-education-mobile__school">{{ edu.school }}</span>
+              {% endif %}
+              {% if edu.years %}
+                <span class="home-education-mobile__years">{{ edu.years }}</span>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+</div>
+
+{% if author.education %}
+  <div class="home-education-desktop">
+    <div class="home-education-desktop__title">Education</div>
+
+    {% for edu in author.education %}
+      <div class="home-education-desktop__item">
+        <div class="home-education-desktop__icon">
+          <i class="fas fa-fw fa-graduation-cap" aria-hidden="true"></i>
+        </div>
+        <div class="home-education-desktop__body">
+          <div class="home-education-desktop__degree">
+            {{ edu.degree }}
+          </div>
+          <div class="home-education-desktop__meta">
+            {% if edu.school %}
+              <span class="home-education-desktop__school">{{ edu.school }}</span>
+            {% endif %}
+            {% if edu.years %}
+              <span class="home-education-desktop__years">{{ edu.years }}</span>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+
