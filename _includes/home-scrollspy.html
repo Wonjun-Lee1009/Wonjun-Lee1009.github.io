@@ -10,7 +10,6 @@
     var nav = document.getElementById('site-nav');
     if (!nav) return;
 
-    // 홈 섹션(#publications, #talks, ...) 기반으로 상단 탭 자동 생성
     var homeSections = Array.prototype.slice.call(document.querySelectorAll('.home-section'));
     if (homeSections.length) {
       var visible = nav.querySelector('.wonjun-nav__links');
@@ -20,7 +19,6 @@
           var id = section.id;
           if (!id) return;
 
-          // 이미 같은 id의 링크가 있으면 스킵
           var exists = nav.querySelector('.masthead__menu-item a[href$="#' + id + '"]');
           if (exists) return;
 
@@ -62,12 +60,10 @@
     if (!pairs.length) return;
 
     function setActive(id) {
-      // 모든 항목에서 selected 제거
       nav.querySelectorAll('.masthead__menu-item').forEach(function (el) {
         el.classList.remove('selected');
       });
 
-      // 현재 id를 가리키는 모든 링크(상단 탭 + 드롭박스)를 다시 찾아서 selected 부여
       var selector = '.masthead__menu-item a[href*="#' + id + '"]';
       nav.querySelectorAll(selector).forEach(function (a) {
         var li = a.closest('.masthead__menu-item');
