@@ -135,7 +135,7 @@
   }
 }
 
-/* 모바일(925px 이하): 세로 배치 + 이미지 왼쪽 정렬, 최대 60vw(화면 축소 시 비율대로 축소) */
+/* 모바일(925px 이하): 세로 배치 + 이미지 왼쪽 정렬, 이미지 가로는 항상 60vw */
 @media (max-width: 925px) {
   .archive__item--with-teaser {
     flex-direction: column;
@@ -149,12 +149,12 @@
 
   .archive__item--with-teaser .archive__item-teaser--list,
   .archive__item--with-teaser .archive__item-teaser {
-    width: 100%;
+    width: 60vw;
     max-width: 60vw;
     min-width: 0;
     flex-shrink: 0;
     float: none;
-    margin: 0 0 -0.5em 0;
+    margin: 0;
   }
 
   .archive__item--with-teaser .archive__item-body {
