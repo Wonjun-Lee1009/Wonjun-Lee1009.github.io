@@ -28,7 +28,7 @@ layout: default
     <div class="page__inner-wrap">
       {% unless page.header.overlay_color or page.header.overlay_image %}
         <header>
-          {% if page.title %}<h1 class="page__title" itemprop="headline">{{ page.title | markdownify | remove: "<p>" | remove: "</p>" }}{% if page.oral %} <span class="archive__item-badge archive__item-badge--oral">Oral</span>{% endif %}{% if page.poster %} <span class="archive__item-badge archive__item-badge--poster">Poster</span>{% endif %}</h1>{% endif %}
+          {% if page.title %}<h1 class="page__title" itemprop="headline">{{ page.title | markdownify | remove: "<p>" | remove: "</p>" }}{% if page.oral %} <span class="archive__item-badge archive__item-badge--oral">Oral</span>{% endif %}{% if page.spotlight %} <span class="archive__item-badge archive__item-badge--spotlight">Spotlight{% if page.rank %} ({{ page.rank }}){% endif %}</span>{% endif %}{% if page.poster %} <span class="archive__item-badge archive__item-badge--poster">Poster</span>{% endif %}</h1>{% endif %}
           {% if page.read_time %}
             <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> {% include read-time.html %}</p>
           {% endif %}

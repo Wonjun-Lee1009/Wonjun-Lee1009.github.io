@@ -15,16 +15,15 @@ name                     : &name "Wonjun Lee"
 description              : &description "Wonjun Lee's academic portfolio"   # Update this with a general description of your site, this is the default if not overridden by a page
 # 홈 상단 인트로 문구 (Publications 위). 마크다운 사용 가능 (**볼드**, - 리스트 등)
 home_intro               : |
-  I am a PhD student in EE at KAIST working on multimodal and foundation models.
+  I am a PhD student in EE at KAIST working on Multi-Modal Models and Large Language Models.
   As AI's role expands across various fields, building **trustworthy AI** is crucial. I am particularly interested in AI security, as vulnerabilities compromise reliability and fairness.
 
-  Additionally, as humans rely on various senses for judgment, I focus on research in **multi-modal learning** and **vision foundation models**. My goal is to help bridge the understanding between AI and humans.
+  Additionally, as humans rely on various senses for judgment, I focus on research in **Multi-Modal Learning** and **AI Security**. My goal is to help bridge the understanding between AI and humans.
 
   My work explores the following, but not limited to:
   - **Multimedia Forensics**: detecting forgeries, synthetic image, and deepfakes
   - **AI Security**: adversarial attack, jailbreaking and their defense
-  - **Multi-Modal Learning**
-  - **Vision Foundation Models**
+  - **Multi-Modal Learning**: multi-modal large language models, efficient multi-modal learning
 
 # 홈 상단 탭/섹션 구성. 순서대로 표시되며, 항목을 빼면 헤더와 본문에서 모두 제외됨.
 # - id: URL 해시 및 탭 식별자

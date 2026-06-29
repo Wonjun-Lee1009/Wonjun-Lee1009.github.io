@@ -58,6 +58,7 @@
         {{ title }}
       {% endif %}
       {% if post.oral %}<span class="archive__item-badge archive__item-badge--oral">Oral</span>{% endif %}
+      {% if post.spotlight %}<span class="archive__item-badge archive__item-badge--spotlight">Spotlight{% if post.rank %} ({{ post.rank }}){% endif %}</span>{% endif %}
       {% if post.poster %}<span class="archive__item-badge archive__item-badge--poster">Poster</span>{% endif %}
     </h2>
     
