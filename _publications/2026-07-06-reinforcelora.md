@@ -7,6 +7,7 @@ permalink: /publication/2027-jailbreak_to_protect
 date: 2026-07-06
 venue: 'International Conference on Machine Learning (ICML)'
 paperurl: 'https://arxiv.org/abs/2605.24550'
+codeurl: 'https://github.com/SeokilHam/Buffer-and-Reinforce'
 authors: Seokil Ham, Jaehyuk Jang, Wonjun Lee, Changick Kim
 spotlight: true
 rank: "Top 2.2%"
