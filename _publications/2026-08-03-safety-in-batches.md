@@ -3,8 +3,8 @@ title: "Safety in Batches? Understanding and Mitigating Safety Failures in Batch
 collection: publications
 category: conferences
 permalink: /publication/2026-safety-in-batches
-date: 2026-08-04
-venue: 'arXiv preprint'
+date: 2026-09-08
+venue: 'Asia-Pacific Chapter of ACL & International Joint Conference on NLP (AACL-IJCNLP Main)'
 paperurl: 'https://arxiv.org/abs/2608.02681'
 authors: Kihyun Kim, Hee-Seon Kim, Wonjun Lee, Changick Kim
 header:
