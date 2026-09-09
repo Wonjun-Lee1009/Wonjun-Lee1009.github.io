@@ -5,6 +5,7 @@ category: conferences
 permalink: /publication/2026-where-identity-lives
 date: 2026-08-06
 venue: 'The 2026 Conference on Empirical Methods in Natural Language Processing (EMNLP findings)'
+paperurl: 'https://arxiv.org/abs/2608.30649'
 authors: Kangwook Ko*, Jaehyuk Jang*, Wonjun Lee*, Hee-Seon Kim, Changick Kim (* indicates equal contribution)
 header:
   image: ''
