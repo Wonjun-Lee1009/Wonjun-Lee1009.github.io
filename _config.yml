@@ -21,9 +21,9 @@ home_intro               : |
   Additionally, as humans rely on various senses for judgment, I focus on research in **Multi-Modal Learning** and **AI Safety**. My goal is to help bridge the understanding between AI and humans.
 
   My work explores the following, but not limited to:
-  - **AI Safety**: jailbreaking, harmful fine-tuning, unlearning, and their defense
+  - **AI Safety**: LLM jailbreaking and defense, and multimedia forensics, including detecting forgeries and deepfakes
   - **Multi-Modal Learning**: multi-modal large language models, efficient multi-modal learning
-  - **Multimedia Forensics**: detecting forgeries, synthetic images, and deepfakes
+  - **Model Adaptation**: prompt tuning, test-time adaptation, SFT and distillation
 
 # 홈 상단 탭/섹션 구성. 순서대로 표시되며, 항목을 빼면 헤더와 본문에서 모두 제외됨.
 # - id: URL 해시 및 탭 식별자
