@@ -6,6 +6,7 @@ permalink: /publication/2026-safety-in-batches
 date: 2026-09-08
 venue: 'Asia-Pacific Chapter of ACL & International Joint Conference on NLP (AACL-IJCNLP Main)'
 paperurl: 'https://arxiv.org/abs/2608.02681'
+codeurl: 'https://github.com/96kihyun/batch_jailbreak'
 authors: Kihyun Kim, Hee-Seon Kim, Wonjun Lee, Changick Kim
 header:
   image: ''
