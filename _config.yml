@@ -22,7 +22,7 @@ home_intro               : |
 
   My work explores the following, but not limited to:
   - **AI Safety**: LLM jailbreaking and defense, and multimedia forensics, including detecting forgeries and deepfakes
-  - **Multi-Modal Learning**: multi-modal large language models, efficient multi-modal learning
+  - **Multi-Modal Learning**: large vision-language and audio-language models
   - **Model Adaptation**: prompt tuning, test-time adaptation, SFT and distillation
 
 # 홈 상단 탭/섹션 구성. 순서대로 표시되며, 항목을 빼면 헤더와 본문에서 모두 제외됨.
